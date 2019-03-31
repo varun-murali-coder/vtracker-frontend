@@ -1,0 +1,11 @@
+<div class="form-group" *ngIf="commentList||currentComment">
+<ul >  <label>Comments:</label>
+  :<li *ngFor="let comm of currentComment"> {{reporter}}: {{comm.comment}}</li>
+  <li *ngFor="let com of commentList" >{{reporter}} : {{com}}</li></ul>
+</div>
+<div>
+  <textarea name="comment" [(ngModel)]="comment" class="form-control" rows="7" cols="100" placeholder="Leave a Comment">
+  </textarea>
+  <br>
+  <button class="btn btn-success" (click)="postComment()">Post a Comment</button>
+  </div>

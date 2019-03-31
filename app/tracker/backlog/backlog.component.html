@@ -1,0 +1,40 @@
+<html>
+  <body>
+    <navbar></navbar>
+      <div class="sidenav">
+          <a href="#"  [routerLink]="['/dashboard']">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Back to dashBoard</a>
+          <a  data-toggle="tooltip" data-placement="right" title="Services provided are Logging ticket,tracking,search functionality,Backlog">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Services</a>
+    <a  data-toggle="tooltip" data-placement="right" title="email:vtraker@support.com,phone no:6785987645">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact</a>
+        </div>
+
+        <div class="main">
+            <div class="container">
+            <h2 class="text-center dashHeading">Backlog</h2>
+            </div>
+            <p> All Issues currently in the queue that are not done:</p>
+            <p><span>Note:</span>The issues can be sorted or filtered using the table headers</p>
+          
+            <div class="gridAg">
+            <ag-grid-angular
+            style="width:750px;height:250px;"
+            class="ag-theme-balham"
+            (gridReady)="onreadyGrid($event)"
+            [columnDefs]="columnDefs"
+            [animateRows]="true"
+            [pagination]="true"
+            [paginationPageSize]="10"
+            [enableFilter]="true"
+            [floatingFilter]="true"
+            [enableSorting]="true"
+           
+            ></ag-grid-angular>
+            </div>
+          </div>
+          <!--Footer Part-->
+          <footer class="footer">
+              <div class="container text-center">
+                <span class="text-white">&copy;VTRACKER</span>
+                </div>
+                </footer>
+  </body>
+  </html>

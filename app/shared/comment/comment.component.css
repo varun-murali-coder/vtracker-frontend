@@ -1,0 +1,8 @@
+ul {
+    list-style-type: none;
+  }
+  label{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 20px;
+      text-align:left;
+  }

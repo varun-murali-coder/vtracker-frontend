@@ -1,0 +1,71 @@
+<html>
+  <body>
+<navbar></navbar>
+<div class="container">
+  <div class="row" style="text-align:left" *ngIf="currentTicket">
+    <div class="col-md-8">
+      <form #createTicketForm="ngForm"  (ngSubmit)="editThisBlog() ">
+        <div class="form-group">
+          <label>Ticket Title</label>
+          <input type="text" name="currentTitle" [(ngModel)]="currentTicket.title" #title="ngModel" class="form-control" placeholder="Enter ticket title required"
+            required>
+            <div [hidden]='title.valid||title.pristine' class="alert alert-danger">Ticket Title Required</div>
+        </div>
+		 <div class="form-group">
+          <label>Assignee</label>
+          <input type="text" name="currentAssignee" [(ngModel)]="currentTicket.assignee" #assignee="ngModel" class="form-control" placeholder="Ticket Assignee required"
+            required>
+            <div [hidden]='assignee.valid||assignee.pristine' class="alert alert-danger">Ticket Assignee Required</div>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+		      <input type="text" name="currentStatus" [(ngModel)]="currentTicket.status" #status="ngModel" class="form-control"
+            placeholder="Enter issue description" required>
+        </div>
+		 <div class="form-group">
+       <div [formGroup]="editorForm">
+          <label>Description</label>
+          			<quill-editor  [(ngModel)]="currentTicket.description" [style]="editorStyle" [modules]="config" (onContentChanged)="maxlength($event)" formControlName="editor"></quill-editor>          
+<span *ngIf="editorForm.get('editor').value!=null">Characters remaining {{100-editorForm.get('editor').value.length}}</span> 
+</div>
+        </div>
+        <button type= "submit" class="btn btn-primary" [disabled]="!createTicketForm.form.valid">Save</button>
+       &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<button  class="btn btn-warning"(click)="subscribeToNotification()">Watch</button>
+       &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<button  class="btn btn-info"[routerLink]="['/dashboard']">Go Back</button>
+
+      </form>
+      <br>
+      <br>
+      <!--Here the comment section will come-->
+      <app-comment></app-comment>
+    </div>
+    <div class="col-md-4">
+        <table class="table" *ngIf="currentWatcher" >
+            <thead>
+              <tr >
+                <th scope="col">Watchers</th>
+               
+              </tr>
+            </thead>
+            <tbody *ngFor="let com of currentWatcher">
+              <tr>
+                <td>{{com.userName}}</td>
+               
+              </tr>
+            </tbody>
+          </table></div>
+  </div>
+  
+   
+</div>
+
+<!--Footer Part-->
+<footer class="footer">
+    <div class="container text-center">
+      <span class="text-white">&copy;VTRACKER</span>
+      </div>
+      </footer>
+           
+     
+</body>
+</html>

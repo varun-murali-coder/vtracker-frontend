@@ -1,0 +1,123 @@
+<html>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">VTRACKER</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <button class="btn btn-outline-primary my-2 my-sm-0 logB active " data-toggle="modal"
+            data-target="#createTicket" type="submit">Create</button>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" name="keyword" [(ngModel)]="keyword" placeholder="Search"
+          aria-label="Search">
+        <button class="btn btn-outline-warning my-2 my-sm-0 active" (click)="search()" type="submit">Search</button>
+      </form>
+
+      <ul class="navbar-nav ml-4">
+        <li class="nav-item dropdown drop">
+          <a class="nav-link active  selectBox" style="font-weight: bold;color:#000000" href="#" id="navbarDropdown"
+            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{firstTwo}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" (click)="logout()">logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!--Modal For Logging  a Ticket-->
+
+  <div class="modal fade" id="createTicket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form #createTicketForm="ngForm" (ngSubmit)="createTicket()">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Log a Ticket</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+
+              Title: <input type="text" id="inputTitle" name="title" [(ngModel)]="title" #ticTitle="ngModel"
+                class="form-control" placeholder="Description of Bug" required autofocus>
+            </div>
+            <div [hidden]='ticTitle.valid||ticTitle.pristine' class="alert alert-danger"> Title Required</div>
+
+            <br>
+            <div class="form-group">
+              Assignee:<input type="text" id="assignee" name="assignee" [(ngModel)]="assignee" #ticAssignee="ngModel"
+                class="form-control" placeholder="Assignee name" required autofocus>
+            </div>
+            <div [hidden]='ticAssignee.valid||ticAssignee.pristine' class="alert alert-danger"> Assignee Required</div>
+
+            <br>
+            <div class="form-group">
+              Status:
+              <span>
+                <select [(ngModel)]="statusD" name="statusD" required>
+                  <option *ngFor="let x of statusDrop" [selected]="x.name=='select'" [value]="x.id">{{x.name}}</option>
+                </select>
+              </span>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea name="description" [(ngModel)]="description" class="form-control" rows="3"
+                placeholder="Please enter description" required>
+            </textarea>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="ticButton"
+              [disabled]="!createTicketForm.form.valid">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="sidenav">
+    <a href="#" [routerLink]="['/backlog']">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Backlog</a>
+    <a data-toggle="tooltip"   data-placement="top" title="Services provided are Logging ticket,tracking,search functionality,Backlog">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Services</a>
+    <a  data-toggle="tooltip"  data-placement="top" title="email:vtraker@support.com,phone no:6785987645">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact</a>
+  </div>
+
+  <!--Main Content Part-->
+  <div class="main">
+    <div class="container">
+      <h2 class="text-center dashHeading"> Welcome to Dashboard</h2>
+    </div>
+    <p>Issues currently in the queue:</p>
+    <p><span>Note:</span>The issues can be sorted or filtered using the table headers</p>
+    <p><span>Note:</span>Please use the title columns to go find the details about the respective ticket</p>
+
+
+    <div class="gridAg">
+      <ag-grid-angular style="width:750px;height:250px;" class="ag-theme-balham" (gridReady)="onreadyGrid($event)"
+        [columnDefs]="columnDefs" [animateRows]="true" [pagination]="true" [paginationPageSize]="10"
+        [enableFilter]="true" [floatingFilter]="true" [enableSorting]="true"></ag-grid-angular>
+    </div>
+  </div>
+  <!--Footer Part-->
+  <footer class="footer">
+    <div class="container text-center">
+      <span class="text-white">&copy;VTRACKER</span>
+    </div>
+  </footer>
+</body>
+
+</html>

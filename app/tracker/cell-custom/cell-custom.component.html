@@ -1,0 +1,3 @@
+<div *ngFor="let ticket of tickets">
+<a *ngIf="cellValue==ticket.title" [routerLink]="['/description',ticket.issueId]">{{cellValue}}</a>
+</div>
